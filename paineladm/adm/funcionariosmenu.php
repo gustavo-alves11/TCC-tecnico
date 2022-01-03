@@ -1,0 +1,296 @@
+<?php
+//esse primeiro if e session_start vao em todas as paginas restritras ao adm.
+session_start();
+if (!isset($_SESSION['loginadm']))
+{
+    header("location: loginadm.html");
+    session_destroy();
+    
+}
+if (isset($_GET["deslogar"])){
+    session_destroy();
+    header("location: loginadm.html");
+}
+//if (isset($_GET["consultar"]))
+//print_r($_SESSION);
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="utf-8" />
+        <!--Icone na Aba do navegador------------------------------------------------->
+        <link rel="apple-touch-icon" sizes="76x76" href="../styles/img/ic_group_48px.png">
+        <link rel="icon" type="image/png" href="../styles/img/ic_group_48px.png">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <!--Titulo Aba do navegador-->
+        <title>ECOBRAINS</title>
+        <!-- CSS  -->
+        <link href="../styles/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../styles/css/light-bootstrap.css?v=2.0.0 " rel="stylesheet" />
+    </head>
+
+        <!-------Arquivos JavaScript------>
+        <script src="../styles/js/core/jquery.3.5.1.min.js" type="text/javascript"></script>
+        <script src="../styles/js/core/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../styles/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
+
+<body>
+
+    <!--Inicio-----Abas da esquerda------------>
+    <div class="wrapper">       <!--Cor e imagem do lado, Abas da esquerda-->
+        <div class="sidebar" data-color="green" data-image="../styles/img/sidebar-5.jpg">
+            <div class="sidebar-wrapper" >
+                <div class="logo">
+                    <a class="simple-text">
+                        ECOBRAINS
+                    </a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a class="nav-link" href="paineladm.php">
+                            <i class="nc-icon nc-tv-2"></i>
+                            <p>Painel</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./funcionariosmenu.php">
+                            <i class="nc-icon nc-badge"></i>
+                            <p>Funcionarios</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="./cliente.php">
+                            <i class="nc-icon nc-circle-09"></i>
+                            <p>Clientes</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="./produtos.php">
+                            <i class="nc-icon nc-app"></i>
+                            <p>Produtos</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="./pedidos.php">
+                            <i class="nc-icon nc-notes"></i>
+                            <p>Pedidos</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="./contatomenu.php">
+                            <i class="nc-icon nc-email-85"></i>
+                            <p>Contato</p>
+                        </a>
+                    </li>
+                    <li>
+                    <a class="nav-link" href="./cupom.php">
+                        <i class="nc-icon nc-money-coins"></i>
+                        <p>Cupom</p>
+                    </li>   
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <!--Fim-----Abas da esquerda------------>
+
+        <!--Inicio------Aba superior------------>
+        <div class="main-panel">                         
+            <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+                <div class="container-fluid">
+                    <a class="navbar-brand" > Funcionarios</a>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href=?deslogar>
+                                    <span class="no-icon">Sair</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        <!--Fim------Aba superior------------>
+
+<!--Inicio-----Card central---------------------->            
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"></h4>
+                        <p class="card-category"></p>
+                    </div>
+                        <div class="card-body">
+                            <form method="POST" action="funcionarioadm.php"><!--------------------------------------------Formulario--------------------------------->
+                                <div class="row">
+                                    <div class="col-md-2 pr-1">
+                                        <div class="form-group">
+                                            <label>CPF</label>
+                                            <input type="text" class="form-control" name="cpf">
+                                        </div>
+                                    </div>
+                
+                                    <div class="col-md-2 pl-1">
+                                        <div class="form-group">
+                                            <label>RG</label>
+                                            <input type="text" class="form-control" name="rg">
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="col-md-3 pl-1">
+                                        <div class="form-group">
+                                            <label for="">Nome</label>
+                                            <input type="text" class="form-control" name="nome">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 pl-1">
+                                        <div class="form-group">
+                                            <label for="">Sexo</label>
+                                            <select class="form-control" name="sexo">
+                                                <option></option>
+                                                <option value="F" name="F" >Feminino</option>
+                                                <option value="M" name="M" >Masculino</option>
+                                                <option value="O" name="O" >Outros</option>
+                                              </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 pr-1">
+                                        <div class="form-group">
+                                            <label>Data Nascimento</label>
+                                            <input type="date" class="form-control" name="data_nasc">
+                                        </div>
+                                    </div>
+                
+                                    <div class="col-md-3 pl-1">
+                                        <div class="form-group">
+                                            <label>Data Admição</label>
+                                            <input type="date" class="form-control" name="data_adm">
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="row">
+                                    <div class="col-md-3 pr-1">
+                                        <div class="form-group">
+                                            <label>CEP</label>
+                                            <input type="text" class="form-control" name="cep">
+                                        </div>
+                                    </div>
+                
+                                    <div class="col-md-3 pl-1">
+                                        <div class="form-group">
+                                            <label>Endereço</label>
+                                            <input type="text" class="form-control" name="endereco">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 pl-1">
+                                        <div class="form-group">
+                                            <label for="">Bairro</label>
+                                            <input type="text" class="form-control" name="bairro">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 pl-1">
+                                        <div class="form-group">
+                                            <label for="">Cidade</label>
+                                            <input type="text" class="form-control" name="cidade">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 pr-1">
+                                        <div class="form-group">
+                                            <label>Numero</label>
+                                            <input type="text" class="form-control" name="numero">
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="col-md-2 pl-1">
+                                        <div class="form-group">
+                                            <label>Complemento</label>
+                                            <input type="text" class="form-control" name="complemento">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">   
+                                    <div class="col-md-2 pr-1">
+                                        <div class="form-group">
+                                            <label for="">Numero Fixo</label>
+                                            <input type="text" class="form-control" name="residencial">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 pl-1">
+                                        <div class="form-group">
+                                            <label for="">Numero Celular</label>
+                                            <input type="text" class="form-control" name="celular">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 pl-1">
+                                        <div class="form-group">
+                                            <label for="">Email</label>
+                                            <input type="text" class="form-control" name="email">
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <div class="row">
+                                    <div class="col-md-3 pr-1">
+                                        <div class="form-group">
+                                            <label for="">Codigo do Funcionario</label>
+                                            <input type="text" class="form-control" placeholder="Não preencher no cadastro" name="cod">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 pl-1">
+                                        <div class="form-group">
+                                            <label for="">Senha do Funcionario</label>
+                                            <input type="password" class="form-control" name="senha">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                <div class="col-md- pr-2">
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary" name="botao" value="cadastrar"  ></input>
+                                        <input type="submit" class="btn btn-danger"  name="botao" value="Apagar"     ></input>
+                                        <input type="submit" class="btn btn-warning" name="botao" value="alterar"    ></input>
+                                        <input type="submit" class="btn btn-info"    name="botao" value="consulta"  ></input>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="col-md-3 pr-1">
+                                        <label id=""> </label>
+                                    </div>
+                                </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!--Fim-----Card central--------------------->
+</body>
+</html>

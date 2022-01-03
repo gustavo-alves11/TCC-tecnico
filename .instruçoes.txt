@@ -1,0 +1,17 @@
+Instruções;
+Para acessar o index do site inserir (localhost/ecobrains07-7/index.html)
+por lá será posivel navegar por todo o site inclusive a area de login do cliente
+Login clinete: teste@teste
+senha Cliente:	1234
+
+
+
+Para acessar o paineladm deve inserir (localhost/ecobrains07-7/paineladm/loginadm.html)
+
+Login clinete: adm01
+senha Cliente:	1234
+
+Para acessar o paineladm deve inserir (localhost/ecobrains07-7/painelfuncionario/loginfuncionario.html)
+
+Login funcionario: 12345678989
+senha funcionario: 1234

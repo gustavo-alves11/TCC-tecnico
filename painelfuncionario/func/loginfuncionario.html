@@ -1,0 +1,75 @@
+
+
+</html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Funcionario</title>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+        <style>
+            body{background-image:url("fundo.jpg");
+                color:white !important;
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-attachment:fixed;}
+
+            
+            form{
+                    color:black;
+                    border:solid white;
+                    border-radius:5px;
+                    height:275px;
+                    width:370px;
+                    background-color:white;
+                }
+
+            h4  {
+
+                font-size:23px;
+                color:white; 
+                background: -webkit-gradient(linear, left top, right top, from(#4FC600), to(#388D01)) no-repeat;
+                padding:25px; 
+                width:300px !important;
+                position: relative;
+                top: -25%;
+
+                }
+
+            button{
+                    color:green;
+                    padding:10px 15px;
+                    border-radius: 5px;
+                    background: none;
+                    border:solid green 1px;
+                }
+
+            .conteudo{
+                    position:relative; 
+                    bottom:20%;
+            }
+
+            input{
+                    height: 40px
+            }
+
+        </style>
+    </head>
+    <body>
+        <center><br><br><br><br><br><br><br><br>
+                <form method="POST" action="loginfuncionario.php">
+                    <h4>Login Funcionario</h4>
+
+                    <div class="conteudo">
+                        <i class="material-icons">mail</i>
+                        <input type="text" name="login" placeholder=" Login..."/><br><br>
+
+                        <i class="material-icons">lock_outline</i> 
+                        <input type="password" name="senha" placeholder=" Senha..."/><br><br>
+
+                        <button type="submit">ENTRAR</button>
+                    </div>
+                </form>
+        </center>
+    </body>
+</html>

@@ -1,0 +1,463 @@
+
+
+<?php
+
+session_start();
+include "conexao.php";
+if (!isset($_SESSION['logincliente']))
+{
+    header("location: logincliente.html");
+    session_destroy();
+    
+}
+if (isset($_GET["deslogar"])){
+  session_destroy();
+  header("location: login.html");
+}
+
+
+
+if ($_SESSION["pontosCliente"]>='250' && $_SESSION["pontosCliente"]<='499')
+{   
+  
+      try
+      {
+        
+              $comando = $conexao->prepare("select * from tb_cupom where preco_cupom <=250 ORDER BY RAND() LIMIT 1");
+              $comando->bindParam(1, $pontoscliente);
+              $comando->execute();
+              {
+                while($linha = $comando->fetch(PDO::FETCH_OBJ))
+                {   
+                  $_SESSION['codcupom']=$linha->cod_cupom;  
+                  $_SESSION['nomecupom']= $linha->nome_cupom;
+                   
+                    $_SESSION['precocupom']=$linha->preco_cupom;
+                    echo "Seu codigo de cupom é: ". $_SESSION['codcupom'];
+                }
+            }
+              if($comando->execute())
+              {
+                  
+                $comando = $conexao->prepare("update tb_cliente set pontos_cliente=pontos_cliente-? where cpf_cliente=?");
+                $comando->bindParam(1, $_SESSION["precocupom"]);
+                $comando->bindParam(2, $_SESSION["cpfCliente"]);
+                $comando->execute();
+             }
+            
+             else
+          {
+          throw new PDOException("Erro: Não foi possivel executar o comando");
+          };    
+       }
+      catch (PDOException $erro)
+      {
+          echo "Erro; ". $erro->getMessage();
+      }
+      if(isset( $_SESSION['codcupom']))
+      {
+              
+          try
+          {
+                $comando = $conexao->prepare("select pontos_cliente from tb_cliente where email_cliente=?");
+                $comando->bindParam(1, $_SESSION["emailCliente"]);
+                $comando->execute();
+                {
+                  while($linha = $comando->fetch(PDO::FETCH_OBJ))
+                  {   
+                    $_SESSION['pontosCliente']=$linha->pontos_cliente;
+                  }
+               }
+          }
+      
+          catch (PDOException $erro)
+          {
+            echo "Erro; ". $erro->getMessage();
+          }
+      } 
+    }
+          
+      if ($_SESSION["pontosCliente"]>='500' && $_SESSION["pontosCliente"]<'999')
+      {   
+        
+            try
+            {
+              
+                    $comando = $conexao->prepare("select * from tb_cupom where preco_cupom=500 ORDER BY RAND() LIMIT 1");
+                    $comando->bindParam(1, $pontoscliente);
+                    $comando->execute();
+                    {
+                      while($linha = $comando->fetch(PDO::FETCH_OBJ))
+                      {   
+                        $_SESSION['codcupom']=$linha->cod_cupom;  
+                        $_SESSION['nomecupom']= $linha->nome_cupom;
+                         
+                          $_SESSION['precocupom']=$linha->preco_cupom;
+                          echo "Seu codigo de cupom é: ". $_SESSION['codcupom'];
+                      }
+                  }
+                    if($comando->execute())
+                    {
+                        
+                      $comando = $conexao->prepare("update tb_cliente set pontos_cliente=pontos_cliente-? where cpf_cliente=?");
+                      $comando->bindParam(1, $_SESSION["precocupom"]);
+                      $comando->bindParam(2, $_SESSION["cpfCliente"]);
+                      $comando->execute();
+                   }
+                  
+                   else
+                {
+                throw new PDOException("Erro: Não foi possivel executar o comando");
+                };    
+             }
+            catch (PDOException $erro)
+            {
+                echo "Erro; ". $erro->getMessage();
+            }
+              
+              if(isset( $_SESSION['codcupom']))
+              {
+                      
+                  try
+                  {
+                        $comando = $conexao->prepare("select pontos_cliente from tb_cliente where email_cliente=?");
+                        $comando->bindParam(1, $_SESSION["emailCliente"]);
+                        $comando->execute();
+                        {
+                          while($linha = $comando->fetch(PDO::FETCH_OBJ))
+                          {   
+                            $_SESSION['pontosCliente']=$linha->pontos_cliente;
+                          }
+                       }
+                  }
+              
+                  catch (PDOException $erro)
+                  {
+                    echo "Erro; ". $erro->getMessage();
+                  }
+              } 
+      }
+      
+            
+      if ($_SESSION["pontosCliente"]>='1000')
+      {   
+        
+            try
+            {
+              
+                    $comando = $conexao->prepare("select * from tb_cupom where preco_cupom=1000 ORDER BY RAND() LIMIT 1");
+                    $comando->bindParam(1, $pontoscliente);
+                    $comando->execute();
+                    {
+                      while($linha = $comando->fetch(PDO::FETCH_OBJ))
+                      {   
+                        $_SESSION['codcupom']=$linha->cod_cupom;  
+                        $_SESSION['nomecupom']= $linha->nome_cupom;
+                         
+                          $_SESSION['precocupom']=$linha->preco_cupom;
+                          
+                      }
+                     
+                  }
+                    if($comando->execute())
+                    {
+                        
+                      $comando = $conexao->prepare("update tb_cliente set pontos_cliente=pontos_cliente-? where cpf_cliente=?");
+                      $comando->bindParam(1, $_SESSION["precocupom"]);
+                      $comando->bindParam(2, $_SESSION["cpfCliente"]);
+                      $comando->execute();
+                   }
+                  
+                   else
+                {
+                throw new PDOException("Erro: Não foi possivel executar o comando");
+                };    
+             }
+            catch (PDOException $erro)
+            {
+                echo "Erro; ". $erro->getMessage();
+            }
+          
+            if(isset( $_SESSION['codcupom']))
+  {
+          
+      try
+      {
+            $comando = $conexao->prepare("select pontos_cliente from tb_cliente where email_cliente=?");
+            $comando->bindParam(1, $_SESSION["emailCliente"]);
+            $comando->execute();
+            {
+              while($linha = $comando->fetch(PDO::FETCH_OBJ))
+              {   
+                $_SESSION['pontosCliente']=$linha->pontos_cliente;
+              }
+           }
+      }
+  
+      catch (PDOException $erro)
+      {
+        echo "Erro; ". $erro->getMessage();
+      }
+  } 
+}
+if($_SESSION["pontosCliente"]<'250')
+      {
+        $_SESSION['codcupom']='Pontos insuficientes.';
+        $_SESSION['nomecupom']='';
+      }      
+
+          
+  
+  
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>CUPONS</title>
+
+  <style>
+    .esquerda{margin-left:17%;
+      text-align:left;
+    float:left;}
+
+    .progresso{margin-right:20%;
+      text-align:right;
+    float: right;
+    width: 350px;}
+
+    .intro{ background-image:url("images/reciclagem/background5.jpg");
+        color:white !important;
+        background-repeat:no-repeat;
+        background-size:cover;
+    background-size: cover;}
+
+    body{background-color: white !important;}
+    .nav-link:hover{color: green !important;}
+
+    .cupom{height:350px;
+      border-radius:5px !important;
+      width:310px;
+      border: solid black 0.5px;
+      box-shadow: 4px 5px 10px rgba(0,0,0,0.5);}
+
+      .topo{background-color:green;
+       padding:10px;
+       height: 60px;
+       text-align:center;
+       color:white !important;}
+
+  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+      <link rel="icon" type="image/png" href="images/icons/icon1.png"/>
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor1/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor1/animate/animate.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor1/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="vendor1/select2/select2.min.css">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="css2/util.css">
+      <link rel="stylesheet" type="text/css" href="css2/main.css">
+    <!--===============================================================================================-->
+
+
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700i,900|Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
+        
+
+        <!-- Icon css link -->
+        <link href="css1/font-awesome.min.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="css1/bootstrap.min.css" rel="stylesheet">
+        
+        <!-- Rev slider css -->
+        <link href="vendors/revolution/css/settings.css" rel="stylesheet">
+        <link href="vendors/revolution/css/layers.css" rel="stylesheet">
+        <link href="vendors/revolution/css/navigation.css" rel="stylesheet">
+        
+        <!-- Extra plugin css -->
+        <link href="vendors/owl-carousel/owl.carousel.min.css" rel="stylesheet">
+        
+        <link href="css1/style.css" rel="stylesheet">
+        <link href="css1/responsive.css" rel="stylesheet">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" style="background-color:#ECE4CF;">
+  <div class="site-wrap" id="home-section">
+
+      <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body">
+        </div>
+      </div>
+
+     
+<div class="intro">
+      <header class="main_menu_area">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html"><img src="images/reciclagem/logo.png" height="64px;" width="64px;" alt=""></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="produtos.html">Produtos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header><br><br><br><br>
+
+
+        <br><h2 style="font-size:50px; color:white; margin-left:12%; height: 1px;">Cupons</h2><br>
+       
+        <br><br><br><br><br>
+  
+</div><br><br>
+ 
+        <center>
+        <h1>Resgate do Cupom</h1><br>
+        <div class="cupom">
+          <div class="topo">
+            <h2 style="color: white;">Ecobrains</h2>
+          </div>
+          <center>
+          <img src="images/reciclagem/presente.png" height="90px" width="90px" style="margin-top: 60px;"><br><br>
+          <b><i>Seu Cupom:</i></b>
+          <!-- Coloca o código aqui <3 -->
+          <p style="font-weight: bold; text-decoration: underline green;"><?php echo $_SESSION['nomecupom'];?></p>
+          <b><i>Código:</i></b>
+          <!-- Coloca o código aqui <3 -->
+          <p style="font-weight: bold; text-decoration: underline green;"><?php echo $_SESSION['codcupom']; ?></p>
+          </center>
+
+        
+      </center>
+        <br><br>
+
+
+      </div><br>
+      <div class="progresso">
+
+       
+
+        
+        </div>  
+      </div>
+    </div>
+    
+   
+
+
+
+
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/aos.js"></script>
+
+    <script src="js/main.js"></script>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js1/jquery-3.2.1.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js1/popper.min.js"></script>
+        <script src="js1/bootstrap.min.js"></script>
+        <!-- Rev slider js -->
+        <script src="vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
+        <script src="vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+        <script src="vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+        <!-- Extra plugin css -->
+        <script src="vendors/counterup/jquery.waypoints.min.js"></script>
+        <script src="vendors/counterup/jquery.counterup.min.js"></script> 
+        <script src="vendors/counterup/apear.js"></script>
+        <script src="vendors/counterup/countto.js"></script>
+        <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="vendors/magnify-popup/jquery.magnific-popup.min.js"></script>
+        <script src="js1/smoothscroll.js"></script>
+        
+        <script src="js1/theme.js"></script>
+
+        <!--===============================================================================================-->
+        <script src="vendor1/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+          <script src="vendor1/bootstrap/js/popper.js"></script>
+          <script src="vendor1/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+          <script src="vendor1/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+          <script src="vendor1/tilt/tilt.jquery.min.js"></script>
+          <script >
+            $('.js-tilt').tilt({
+              scale: 1.1
+            })
+          </script>
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+        <script>
+          jQuery(document).ready(function($) {
+   $(".scroll").click(function(event){
+    event.preventDefault();
+    $('html,body').animate({scrollTop:$(this.hash).offset().top}, 1000);
+   });
+  });
+
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'UA-23581568-13');
+        </script>
+        
+        <!--===============================================================================================-->
+          <script src="js2/main.js"></script>
+     
+
+  </body>
+
+</html>
